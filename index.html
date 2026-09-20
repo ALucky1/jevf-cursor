@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jefe Cursor</title>
+<meta name="description" content="A drop-in custom cursor for the web that plays a sound when you click.">
+<link rel="icon" type="image/png" href="assets/cursor@2x.png">
+<style>
+  :root{
+    --bg:#141317;
+    --panel:#1c1b20;
+    --line:rgba(244,236,224,.14);
+    --text:#f4ece0;
+    --dim:#8d877f;
+    --glow:#38d9ec;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1000px 600px at 50% -10%, rgba(56,217,236,.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:64px 16px 96px}
+  header{text-align:center;margin-bottom:56px}
+  .mark{width:180px;height:auto;filter:drop-shadow(0 0 28px rgba(56,217,236,.35))}
+  h1{font-size:clamp(34px,7vw,52px);margin:18px 0 6px;letter-spacing:-.02em}
+  .tag{color:var(--dim);margin:0;font-size:17px}
+  .pad{
+    margin:36px 0;padding:48px 24px;text-align:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  }
+  .pad strong{display:block;font-size:22px;margin-bottom:6px}
+  .pad span{color:var(--dim);font-size:14px}
+  .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+  button{
+    font:600 14px/1 inherit;letter-spacing:.04em;
+    padding:13px 20px;border-radius:10px;
+    background:#26252b;color:var(--text);border:1px solid var(--line);
+  }
+  button:hover{border-color:rgba(56,217,236,.5)}
+  h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+     margin:48px 0 14px;font-weight:600}
+  pre{
+    background:#0f0e12;border:1px solid var(--line);border-radius:12px;
+    padding:18px;overflow-x:auto;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;
+    color:#cfd6d8;
+  }
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;letter-spacing:.04em}
+  code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--glow)}
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);
+         color:var(--dim);font-size:13px;text-align:center}
+  a{color:var(--glow)}
+  .note{color:var(--dim);font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="mark" src="assets/cursor-256.png" alt="A chrome robot head with glowing cyan eyes">
+    <h1>Jefe Cursor</h1>
+    <p class="tag">A custom cursor that talks back when you click.</p>
+  </header>
+
+  <div class="pad">
+    <strong>Click anywhere on this page.</strong>
+    <span>Your pointer is the robot. Every click plays the sound.</span>
+    <div class="row">
+      <button type="button">Click me</button>
+      <button type="button">Or me</button>
+      <button type="button" id="quiet">Mute / unmute</button>
+    </div>
+    <p class="note">Touch screens keep their normal behavior and stay silent.</p>
+  </div>
+
+  <h2>Install</h2>
+  <p>Copy <code>dist/jefe-cursor.js</code> and the four files from <code>assets/</code> into your site, then add one line:</p>
+<pre>&lt;script src="cursor/jefe-cursor.js" data-jefe-auto data-base="cursor"&gt;&lt;/script&gt;</pre>
+  <p>That is the whole install. No build step, no dependencies, no framework.</p>
+
+  <h2>Or configure it</h2>
+<pre>&lt;script src="cursor/jefe-cursor.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  JefeCursor.init({
+    image:   'cursor/cursor.png',
+    image2x: 'cursor/cursor@2x.png',
+    hotspot: [16, 0],
+    sound:   ['cursor/click.mp3', 'cursor/click.ogg'],
+    volume:  0.7,
+    retrigger: 'restart',
+    toggleButton: true
+  });
+&lt;/script&gt;</pre>
+
+  <h2>Options</h2>
+  <table>
+    <tr><th>Option</th><th>Default</th><th>What it does</th></tr>
+    <tr><td><code>image</code> / <code>image2x</code></td><td><code>cursor/cursor.png</code></td><td>The cursor art. The 2x file is used on retina screens.</td></tr>
+    <tr><td><code>hotspot</code></td><td><code>[16, 0]</code></td><td>Which pixel of the 1x image is the actual pointing tip.</td></tr>
+    <tr><td><code>sound</code></td><td><code>['…mp3','…ogg']</code></td><td>Sources in order of preference; the browser picks the first it can play.</td></tr>
+    <tr><td><code>volume</code></td><td><code>0.7</code></td><td>0 to 1.</td></tr>
+    <tr><td><code>retrigger</code></td><td><code>'restart'</code></td><td><code>restart</code> cuts the sound off and replays it, <code>overlap</code> stacks copies, <code>ignore</code> lets the current one finish.</td></tr>
+    <tr><td><code>buttons</code></td><td><code>[0]</code></td><td>Which mouse buttons make noise. 0 left, 1 middle, 2 right.</td></tr>
+    <tr><td><code>requireFinePointer</code></td><td><code>true</code></td><td>Skips the whole thing on touch screens.</td></tr>
+    <tr><td><code>preserveTextCursor</code></td><td><code>true</code></td><td>Keeps the normal I-beam inside inputs and text areas.</td></tr>
+    <tr><td><code>toggleButton</code></td><td><code>false</code></td><td>Adds a small mute button in the corner.</td></tr>
+    <tr><td><code>persistMute</code></td><td><code>true</code></td><td>Remembers the mute choice in localStorage.</td></tr>
+  </table>
+
+  <h2>Methods</h2>
+  <p><code>JefeCursor.mute()</code>, <code>.unmute()</code>, <code>.toggle()</code>, <code>.isMuted()</code>,
+     <code>.setVolume(0.4)</code>, <code>.play()</code>, <code>.destroy()</code></p>
+
+  <footer>
+    MIT licensed. Bring your own art and your own sound.
+  </footer>
+
+</div>
+
+<script src="dist/jefe-cursor.js"></script>
+<script>
+  JefeCursor.init({
+    image:   'assets/cursor.png',
+    image2x: 'assets/cursor@2x.png',
+    sound:   ['assets/click.mp3', 'assets/click.ogg'],
+    volume:  0.7
+  });
+  document.getElementById('quiet').addEventListener('click', function () {
+    JefeCursor.toggle();
+    this.textContent = JefeCursor.isMuted() ? 'Unmute' : 'Mute / unmute';
+  });
+</script>
+</body>
+</html>
