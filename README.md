@@ -105,6 +105,19 @@ thing degrades to `<audio>` and keeps working.
 Chrome, Edge, Safari, Firefox, and anything else with `pointerdown` and CSS cursor
 images. There is no polyfill and nothing to transpile; the source is ES5.
 
+## On your desktop
+
+The script above is for web pages. There is also a real system cursor — the
+actual pointer on your machine, in every app:
+
+| File | Platform | Extra software |
+| --- | --- | --- |
+| `desktop/jevf.cur` | Windows | None |
+| `desktop/Jevf.cape` | macOS | [Mousecape](https://github.com/alexzielenski/Mousecape) |
+
+Art only, no click sound, and the macOS route is genuinely fiddly. Both the
+steps and the reasons are in **[docs/desktop.md](docs/desktop.md)**.
+
 ## Bring your own art
 
 Nothing here is hardcoded to this robot. Point `image` at any PNG under 128×128,
