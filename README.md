@@ -1,20 +1,20 @@
-# Jefe Cursor
+# Jevf Cursor
 
 A drop-in custom cursor for the web that plays a sound when you click.
 
 No dependencies, no build step, no framework. One script tag, four asset files, done.
 
-**[Live demo](https://alucky1.github.io/jefe-cursor/)**
+**[Live demo](https://alucky1.github.io/jevf-cursor/)**
 
 ---
 
 ## Install
 
-Copy `dist/jefe-cursor.js` and the contents of `assets/` into a folder on your site
+Copy `dist/jevf-cursor.js` and the contents of `assets/` into a folder on your site
 (this example calls it `cursor/`), then add one line before `</body>`:
 
 ```html
-<script src="cursor/jefe-cursor.js" data-jefe-auto data-base="cursor"></script>
+<script src="cursor/jevf-cursor.js" data-jevf-auto data-base="cursor"></script>
 ```
 
 That is the entire install.
@@ -22,9 +22,9 @@ That is the entire install.
 ## Configure
 
 ```html
-<script src="cursor/jefe-cursor.js"></script>
+<script src="cursor/jevf-cursor.js"></script>
 <script>
-  JefeCursor.init({
+  JevfCursor.init({
     image:   'cursor/cursor.png',
     image2x: 'cursor/cursor@2x.png',
     hotspot: [16, 0],
@@ -55,7 +55,7 @@ That is the entire install.
 
 ### Data attributes
 
-If you use `data-jefe-auto`, these work without writing any JavaScript:
+If you use `data-jevf-auto`, these work without writing any JavaScript:
 
 | Attribute | Example |
 | --- | --- |
@@ -67,13 +67,13 @@ If you use `data-jefe-auto`, these work without writing any JavaScript:
 ### Methods
 
 ```js
-JefeCursor.mute();
-JefeCursor.unmute();
-JefeCursor.toggle();
-JefeCursor.isMuted();      // -> boolean
-JefeCursor.setVolume(0.4);
-JefeCursor.play();         // fire the sound without a click
-JefeCursor.destroy();      // remove the cursor and stop listening
+JevfCursor.mute();
+JevfCursor.unmute();
+JevfCursor.toggle();
+JevfCursor.isMuted();      // -> boolean
+JevfCursor.setVolume(0.4);
+JevfCursor.play();         // fire the sound without a click
+JevfCursor.destroy();      // remove the cursor and stop listening
 ```
 
 ## How it works

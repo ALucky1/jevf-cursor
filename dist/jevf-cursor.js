@@ -1,23 +1,23 @@
 /*!
- * jefe-cursor v1.0.0 — a custom cursor that talks back when you click.
- * MIT License. https://github.com/ALucky1/jefe-cursor
+ * jevf-cursor v1.0.0 — a custom cursor that talks back when you click.
+ * MIT License. https://github.com/ALucky1/jevf-cursor
  *
  * Drop-in usage:
- *   <script src="jefe-cursor.js" data-jefe-auto></script>
+ *   <script src="jevf-cursor.js" data-jevf-auto></script>
  *
  * Manual usage:
- *   <script src="jefe-cursor.js"></script>
- *   <script>JefeCursor.init({ volume: 0.6 });</script>
+ *   <script src="jevf-cursor.js"></script>
+ *   <script>JevfCursor.init({ volume: 0.6 });</script>
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.JefeCursor = factory();
+  else root.JevfCursor = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  var STYLE_ID = 'jefe-cursor-style';
-  var HTML_CLASS = 'jefe-cursor-on';
-  var STORE_KEY = 'jefe-cursor:muted';
+  var STYLE_ID = 'jevf-cursor-style';
+  var HTML_CLASS = 'jevf-cursor-on';
+  var STORE_KEY = 'jevf-cursor:muted';
 
   var defaults = {
     // Where the art lives. Paths are resolved against the page, not this script.
@@ -108,13 +108,13 @@
              ' html.' + HTML_CLASS + ' [contenteditable="true"] { cursor: text; }';
     }
 
-    css += '\n.jefe-cursor-toggle{position:fixed;right:14px;bottom:14px;z-index:2147483000;' +
+    css += '\n.jevf-cursor-toggle{position:fixed;right:14px;bottom:14px;z-index:2147483000;' +
            'font:600 12px/1 ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.06em;' +
            'text-transform:uppercase;padding:8px 12px;border-radius:999px;' +
            'background:rgba(20,19,23,.82);color:#f4ece0;border:1px solid rgba(244,236,224,.22);' +
            'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}' +
-           '\n.jefe-cursor-toggle[aria-pressed="true"]{opacity:.55;}' +
-           '\n@media (prefers-reduced-motion: reduce){.jefe-cursor-toggle{transition:none}}';
+           '\n.jevf-cursor-toggle[aria-pressed="true"]{opacity:.55;}' +
+           '\n@media (prefers-reduced-motion: reduce){.jevf-cursor-toggle{transition:none}}';
 
     var el = document.createElement('style');
     el.id = STYLE_ID;
@@ -169,7 +169,7 @@
       .then(function (decoded) { buffer = decoded; })
       .catch(function (err) {
         decodeFailed = true;
-        if (window.console) console.warn('[jefe-cursor] falling back to <audio>:', err.message);
+        if (window.console) console.warn('[jevf-cursor] falling back to <audio>:', err.message);
       });
   }
 
@@ -251,7 +251,7 @@
   function buildToggle() {
     var btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'jefe-cursor-toggle';
+    btn.className = 'jevf-cursor-toggle';
     btn.setAttribute('aria-pressed', muted ? 'true' : 'false');
     btn.setAttribute('aria-label', 'Toggle click sound');
     btn.textContent = (muted ? '🔇 ' : '🔊 ') + cfg.toggleButtonLabel;
@@ -299,7 +299,7 @@
       document.documentElement.classList.remove(HTML_CLASS);
       var style = document.getElementById(STYLE_ID);
       if (style) style.parentNode.removeChild(style);
-      var btn = document.querySelector('.jefe-cursor-toggle');
+      var btn = document.querySelector('.jevf-cursor-toggle');
       if (btn) btn.parentNode.removeChild(btn);
       started = false;
       return api;
@@ -314,9 +314,10 @@
     version: '1.0.0'
   };
 
-  // data-jefe-auto on the <script> tag boots it with zero extra code.
-  var self_script = document.currentScript;
-  if (self_script && self_script.hasAttribute('data-jefe-auto')) {
+  // data-jevf-auto on the <script> tag boots it with zero extra code.
+  // Guarded so bundlers and server-side renderers can import this file safely.
+  var self_script = typeof document !== 'undefined' ? document.currentScript : null;
+  if (self_script && self_script.hasAttribute('data-jevf-auto')) {
     var opts = {};
     var base = self_script.getAttribute('data-base');
     if (base) {

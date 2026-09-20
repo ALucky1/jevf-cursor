@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jefe Cursor</title>
+<title>Jevf Cursor</title>
 <meta name="description" content="A drop-in custom cursor for the web that plays a sound when you click.">
 <link rel="icon" type="image/png" href="assets/cursor@2x.png">
 <style>
@@ -66,7 +66,7 @@
 
   <header>
     <img class="mark" src="assets/cursor-256.png" alt="A chrome robot head with glowing cyan eyes">
-    <h1>Jefe Cursor</h1>
+    <h1>Jevf Cursor</h1>
     <p class="tag">A custom cursor that talks back when you click.</p>
   </header>
 
@@ -82,14 +82,14 @@
   </div>
 
   <h2>Install</h2>
-  <p>Copy <code>dist/jefe-cursor.js</code> and the four files from <code>assets/</code> into your site, then add one line:</p>
-<pre>&lt;script src="cursor/jefe-cursor.js" data-jefe-auto data-base="cursor"&gt;&lt;/script&gt;</pre>
+  <p>Copy <code>dist/jevf-cursor.js</code> and the four files from <code>assets/</code> into your site, then add one line:</p>
+<pre>&lt;script src="cursor/jevf-cursor.js" data-jevf-auto data-base="cursor"&gt;&lt;/script&gt;</pre>
   <p>That is the whole install. No build step, no dependencies, no framework.</p>
 
   <h2>Or configure it</h2>
-<pre>&lt;script src="cursor/jefe-cursor.js"&gt;&lt;/script&gt;
+<pre>&lt;script src="cursor/jevf-cursor.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-  JefeCursor.init({
+  JevfCursor.init({
     image:   'cursor/cursor.png',
     image2x: 'cursor/cursor@2x.png',
     hotspot: [16, 0],
@@ -116,7 +116,7 @@
   </table>
 
   <h2>Methods</h2>
-  <p><code>JefeCursor.mute()</code>, <code>.unmute()</code>, <code>.toggle()</code>, <code>.isMuted()</code>,
+  <p><code>JevfCursor.mute()</code>, <code>.unmute()</code>, <code>.toggle()</code>, <code>.isMuted()</code>,
      <code>.setVolume(0.4)</code>, <code>.play()</code>, <code>.destroy()</code></p>
 
   <footer>
@@ -125,17 +125,17 @@
 
 </div>
 
-<script src="dist/jefe-cursor.js"></script>
+<script src="dist/jevf-cursor.js"></script>
 <script>
-  JefeCursor.init({
+  JevfCursor.init({
     image:   'assets/cursor.png',
     image2x: 'assets/cursor@2x.png',
     sound:   ['assets/click.mp3', 'assets/click.ogg'],
     volume:  0.7
   });
   document.getElementById('quiet').addEventListener('click', function () {
-    JefeCursor.toggle();
-    this.textContent = JefeCursor.isMuted() ? 'Unmute' : 'Mute / unmute';
+    JevfCursor.toggle();
+    this.textContent = JevfCursor.isMuted() ? 'Unmute' : 'Mute / unmute';
   });
 </script>
 </body>
