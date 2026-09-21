@@ -92,6 +92,48 @@ falls back to a plain `<audio>` element so it is never silent, and every click a
 that uses the decoded buffer. If Web Audio is missing or the decode fails, the whole
 thing degrades to `<audio>` and keeps working.
 
+## The sound
+
+The sound is the point, so it is worth being explicit about how it behaves.
+
+`assets/` ships the clip in two formats — `click.mp3` and `click.ogg` — and the
+browser takes the first one it can decode. Both are about 13 KB, so the whole
+thing costs less than a small image.
+
+**When it plays.** On `pointerdown`, not on `click`, so it fires the instant the
+button goes down rather than when it comes back up. Only the left button by
+default; change that with `buttons`.
+
+**The first click is special.** Browsers refuse to start audio until the visitor
+has interacted with the page, so there is nothing to preload into. The first
+click therefore plays through a plain `<audio>` element while the Web Audio
+buffer is fetched and decoded in the background; every click after that uses the
+decoded buffer, which is what makes fast clicking feel instant. You do not have
+to do anything — it is handled — but it is why the first click can sound a
+fraction less tight than the rest.
+
+**Fast clicking.** The sample is about a second long, so clicking quickly would
+otherwise stack copies on top of each other. `retrigger: 'restart'` (the default)
+cuts the playing copy off and starts over. Use `'overlap'` if you want them to
+pile up, or `'ignore'` to let each one finish.
+
+**Letting people turn it off.** Set `toggleButton: true` and a small mute button
+appears in the corner; the choice is remembered in `localStorage`. If you ship
+this on a real site, turn it on. You can also drive it yourself with
+`JevfCursor.mute()`, `.unmute()` and `.setVolume()`.
+
+**Nothing plays on touch screens.** Surprise audio on a phone is rude, and there
+is no cursor to explain it, so the whole thing sits out by default.
+
+**Using your own clip.** Point `sound` at any file the browser can decode:
+
+```js
+JevfCursor.init({ sound: ['mine.mp3', 'mine.ogg'], volume: 0.5 });
+```
+
+Keep it short. Anything past a second or so starts to feel laggy no matter what
+`retrigger` is set to.
+
 ## Accessibility and manners
 
 - Nothing runs on touch screens by default: no cursor art, no surprise audio.
